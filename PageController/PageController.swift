@@ -43,7 +43,7 @@ open class PageController: UIViewController {
 extension PageController {
 
     public var frameForMenuBar: CGRect {
-        var frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 44)
+        var frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 65)
         if let frameForNavigationBar = navigationController?.navigationBar.frame {
             frame.origin.y = frameForNavigationBar.maxY
         }
