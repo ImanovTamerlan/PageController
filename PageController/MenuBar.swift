@@ -50,6 +50,7 @@ public class MenuBar: UIView {
     }
 
     public let scrollView = ContainerView(frame: CGRect.zero)
+    public let separator = UIView()
     fileprivate var animating = false
 }
 
@@ -82,7 +83,7 @@ public extension MenuBar {
         scrollView.center = CGPoint(x: frame.width / 2, y: frame.height / 2)
         scrollView.contentSize = CGSize(width: frame.width, height: frame.height)
         scrollView.contentOffset = CGPoint.zero
-
+        separator.frame = CGRect(x: 0, y: self.frame.height-1, width: self.frame.width, height: 1)
         sizes = measureCells()
     }
 
@@ -104,7 +105,7 @@ public extension MenuBar {
         cell.setNeedsLayout()
         cell.layoutIfNeeded()
 
-        let size = cell.systemLayoutSizeFitting(UILayoutFittingCompressedSize, withHorizontalFittingPriority: 50, verticalFittingPriority: 50)
+        let size = cell.systemLayoutSizeFitting(UILayoutFittingCompressedSize, withHorizontalFittingPriority: UILayoutPriority(rawValue: 50), verticalFittingPriority: UILayoutPriority(rawValue: 50))
         // => systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
         cell.frame = CGRect(x: 0, y: 0, width: size.width, height: frame.height)
 
@@ -194,9 +195,10 @@ public extension MenuBar {
 extension MenuBar {
 
     func configure() {
+        separator.backgroundColor = UIColor.groupTableViewBackground
         clipsToBounds = true
-
         scrollView.bar = self
         addSubview(scrollView)
+        addSubview(separator)
     }
 }

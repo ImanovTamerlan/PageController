@@ -8,9 +8,31 @@
 
 import UIKit
 
+open class PaddingLabel: UILabel {
+    
+    @IBInspectable var topInset: CGFloat = 8.0
+    @IBInspectable var bottomInset: CGFloat = 8.0
+    @IBInspectable var leftInset: CGFloat = 8.0
+    @IBInspectable var rightInset: CGFloat = 8.0
+    
+    override open func drawText(in rect: CGRect) {
+        let insets = UIEdgeInsets(top: topInset, left: leftInset, bottom: bottomInset, right: rightInset)
+        super.drawText(in: UIEdgeInsetsInsetRect(rect, insets))
+    }
+    
+    override open var intrinsicContentSize: CGSize {
+        get {
+            var contentSize = super.intrinsicContentSize
+            contentSize.height += topInset + bottomInset
+            contentSize.width += leftInset + rightInset
+            return contentSize
+        }
+    }
+}
+
 open class MenuCell: UIView {
 
-    open let titleLabel = UILabel(frame: CGRect.zero)
+    open var titleLabel = PaddingLabel(frame: CGRect.zero)
     /**
 
     Margins between cells are zero, because it is difficult that calculating distance of scrolling. If you change margins between cell's labels, use constentInset.
